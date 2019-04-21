@@ -1,0 +1,22 @@
+{
+	"attachments-desc": "Attach files and links to pages.",
+	"attachments-noun": "Attachments",
+	"attachments-verb": "Attach",
+	"attachments-add-new": "Add new attachment",
+	"attach-page": "Attaching to \"$1\"",
+	"attachments-heading-add-subpage": "Add subpage",
+	"attachments-subpage-name": "Name of subpage",
+	"attachments-action-add-subpage": "Add",
+	"attachments-heading-upload": "Upload file",
+	"attachments-heading-add-link": "Add link",
+	"attachments-addlinktext": "",
+	"attachments-title": "Title",
+	"attachments-action-add-link": "Add link",
+	"attached-to": "attached to",
+	"attachments-invalid-url": "invalid URL",
+	"attachments-exturl-twice": "exturl was already set",
+	"attachments-exturl-edit-msg": "create external link",
+	"attachments-category-exturl-error": "Pages with exturl errors",
+	"attachments-articleexists": "A page of that name [[$1|already exists]].",
+	"attachments-invalidtitle": "invalid name"
+}

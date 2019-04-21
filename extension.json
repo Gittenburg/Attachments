@@ -1,0 +1,56 @@
+{
+	"name": "Attachments",
+	"type": "other",
+	"license-name": "MIT",
+	"author": "Gittenburg",
+	"url": "https://github.com/Gittenburg/Attachments",
+	"version": "0.1.0",
+	"descriptionmsg": "attachments-desc",
+	"config": {
+		"AttachmentsNamespaces": {
+			"_merge_strategy": "array_plus"
+		}
+	},
+	"AutoloadClasses": {
+		"Attachments": "includes/Attachments.php",
+		"AttachmentsHooks": "includes/AttachmentsHooks.php",
+		"SpecialAttach": "includes/SpecialAttach.php"
+	},
+	"ExtensionMessagesFiles": {
+		"AttachmentsMagic": "includes/Attachments.i18n.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "AttachmentsHooks::onParserFirstCallInit",
+		"BeforePageDisplay": "AttachmentsHooks::onBeforePageDisplay",
+		"MagicWordwgVariableIDs": "AttachmentsHooks::onMagicWordwgVariableIDs",
+		"ParserGetVariableValueSwitch": "AttachmentsHooks::onParserGetVariableValueSwitch",
+		"SkinTemplateNavigation": "AttachmentsHooks::onSkinTemplateNavigation",
+		"MinervaPreRender": "AttachmentsHooks::onMinervaPreRender",
+		"ListDefinedTags": "AttachmentsHooks::onListDefinedTags",
+		"ChangeTagsListActive": "AttachmentsHooks::onListDefinedTags"
+	},
+	"SpecialPages": {
+		"Attach": "SpecialAttach"
+	},
+	"MessagesDirs" : {
+		"Attachments": ["i18n"]
+	},
+	"TrackingCategories": [
+		"attachments-category-exturl-error"
+	],
+	"ResourceModules": {
+		"ext.attachments.minerva-icon": {
+			"class": "ResourceLoaderImageModule",
+			"selector": ".mw-ui-icon-minerva-attach:before",
+			"useDataURI": false,
+			"images": {
+				"attach": "resources/folder-plus.svg"
+			}
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteSkinPath": "Attachments"
+	},
+	"manifest_version": 1
+}

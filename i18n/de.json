@@ -1,0 +1,21 @@
+{
+	"attachments-desc": "Hänge Dateien und Links an Seiten an.",
+	"attachments-noun": "Anhänge",
+	"attachments-verb": "Anhängen",
+	"attachments-add-new": "Neuen Anhang hinzufügen",
+	"attach-page": "Anhängen zu „$1“",
+	"attachments-heading-add-subpage": "Unterseite hinzufügen",
+	"attachments-subpage-name": "Name der Unterseite",
+	"attachments-action-add-subpage": "Anlegen",
+	"attachments-heading-upload": "Datei hochladen",
+	"attachments-heading-add-link": "Link hinzufügen",
+	"attachments-title": "Titel",
+	"attachments-action-add-link": "Link hinzufügen",
+	"attached-to": "angehängt an",
+	"attachments-invalid-url": "ungültige URL",
+	"attachments-exturl-twice": "exturl wurde bereits gesetzt",
+	"attachments-exturl-edit-msg": "erstelle externen Link",
+	"attachments-category-exturl-error": "Seiten mit exturl Fehlern",
+	"attachments-articleexists": "Unter diesem Namen existiert bereits [[$1|eine Seite]].",
+	"attachments-invalidtitle": "ungültiger Name"
+}
