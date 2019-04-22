@@ -20,6 +20,8 @@ For enabled namespaces the attachments of an article are displayed in an automat
 
 [Uploads need to be enabled](https://www.mediawiki.org/wiki/Manual:Configuring_file_uploads#Setting_uploads_on/off) and [subpages need to be enabled](https://www.mediawiki.org/wiki/Manual:LocalSettings.php#Enabling_subpages).
 
+Place the extension in your extensions directory and load it with `wfLoadExtension('Attachments');`.
+
 Then enable the extension for the desired namespaces, e.g:
 
 	$wgAttachmentsNamespaces[NS_MAIN] = true;
