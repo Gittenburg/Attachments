@@ -12,6 +12,7 @@ For enabled namespaces the attachments of an article are displayed in an automat
 
 * `#attach` also works on regular articles.
 * You can link files added through `Special:Attach` relatively with `[[File:{{FILEPREFIX}}filename.jpg]]`.
+* Enable [$wgCountCategorizedImagesAsUsed](https://www.mediawiki.org/wiki/Manual:$wgCountCategorizedImagesAsUsed) to exclude attached files from `Special:UnusedImages`.
 * Attachments and external URLs are both stored as [page props](https://www.mediawiki.org/wiki/Manual:Page_props_table), meaning they can be queried with [API:Pageprops](https://www.mediawiki.org/wiki/API:Pageprops) and [API:Pageswithprop](https://www.mediawiki.org/wiki/API:Pageswithprop).
 * You can change how attachments are sorted with the `BeforeSortAttachments` hook.
 
@@ -35,6 +36,5 @@ This extension is essentially a rewrite of PerPageResources by Mathias Ertl, whi
 
 ## Planned features
 
-* `Special:ActuallyUnusedFiles` to list files which are both unused and unattached.
 * Magic words for statistics: `{{NUMBEROFATTACHMENTS}}` and `{{ATTACHMENTSFORNS:index}}`
 * `{{#attachments hide subpages: prefix}}` for use on content pages to hide subpages starting with the given prefix from the autoindex.

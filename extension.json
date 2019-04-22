@@ -36,6 +36,7 @@
 		"Attachments": ["i18n"]
 	},
 	"TrackingCategories": [
+		"attachments-category-attached-files",
 		"attachments-category-exturl-error"
 	],
 	"ResourceModules": {

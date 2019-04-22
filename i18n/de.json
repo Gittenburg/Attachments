@@ -15,7 +15,8 @@
 	"attachments-invalid-url": "ungültige URL",
 	"attachments-exturl-twice": "exturl wurde bereits gesetzt",
 	"attachments-exturl-edit-msg": "erstelle externen Link",
-	"attachments-category-exturl-error": "Seiten mit exturl Fehlern",
 	"attachments-articleexists": "Unter diesem Namen existiert bereits [[$1|eine Seite]].",
-	"attachments-invalidtitle": "ungültiger Name"
+	"attachments-invalidtitle": "ungültiger Name",
+	"attachments-category-attached-files": "Angehängte Dateien",
+	"attachments-category-exturl-error": "Seiten mit exturl Fehlern"
 }

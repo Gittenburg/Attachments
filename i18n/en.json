@@ -16,7 +16,8 @@
 	"attachments-invalid-url": "invalid URL",
 	"attachments-exturl-twice": "exturl was already set",
 	"attachments-exturl-edit-msg": "create external link",
-	"attachments-category-exturl-error": "Pages with exturl errors",
 	"attachments-articleexists": "A page of that name [[$1|already exists]].",
-	"attachments-invalidtitle": "invalid name"
+	"attachments-invalidtitle": "invalid name",
+	"attachments-category-attached-files": "Attached files",
+	"attachments-category-exturl-error": "Pages with exturl errors"
 }

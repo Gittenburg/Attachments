@@ -12,7 +12,12 @@ class AttachmentsHooks {
 	public static function renderAttach( Parser $parser, $page) {
 		$title = Title::newFromText($page);
 		$parser->getOutput()->setProperty(Attachments::getAttachPropname($title), $title);
+
 		$parser->getOutput()->setProperty(Attachments::PROP_ATTACH, true); # allow querying with API:Pageswithprop
+		if ($parser->getTitle()->inNamespace(NS_FILE))
+			# add category for $wgCountCategorizedImagesAsUsed
+			$parser->getOutput()->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
+
 		return [self::msg(wfMessage('attached-to').' <b>'.Linker::linkKnown($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
 	}
 
