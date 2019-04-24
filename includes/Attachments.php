@@ -45,7 +45,7 @@ class Attachments {
 			[
 				'page_namespace'=>NS_FILE,
 				'page_id=pp_page',
-				'pp_propname'=>Attachments::getAttachPropname($title)
+				'pp_propname'=>self::getAttachPropname($title)
 			]
 		);
 		if ($count)
@@ -57,30 +57,30 @@ class Attachments {
 		return RepoGroup::singleton()->getLocalRepo()->findFiles($titles);
 	}
 
-	public static function getSubpages($title, $count = FALSE){
+	public static function getSubpages(Title $title, $count = FALSE){
 		$dbr = wfGetDB(DB_REPLICA);
 		$results = [];
 		$res = $dbr->select(
-			['r' => ['revision'], 'pp'=>'page_props', 'p' => ['p'=>'page_props'], 'page'],
-			$count ? ['count'=>'count(*)'] : ['page_title', 'page_namespace', 'p.pp_value'],
+			['page', 'rev'=>'revision', 'patt'=>'page_props', 'purl' => 'page_props'],
+			$count ? ['count'=>'count(*)'] : ['page_title', 'page_namespace', 'purl.pp_value'],
 			[
 				$dbr->makeList([
 					$dbr->makeList([
-						'page_title'.$dbr->buildLike($title->getText().'/', $dbr->anyString()),
+						'page_title'.$dbr->buildLike($title->getDBkey().'/', $dbr->anyString()),
 						'page_namespace'=>$title->getNamespace()
 					], LIST_AND),
-					'pp.pp_propname'=>Attachments::getAttachPropname($title)
+					'patt.pp_propname is not null'
 				], LIST_OR),
-
-				'rev_deleted=0',
-				'page_id=pp.pp_page',
-				'page_latest=rev_id',
 				'page_is_redirect=0',
 				'page_namespace !=' . NS_FILE
 			],
 			__METHOD__,
 			[],
-			['p'=>['LEFT JOIN', ['page_id=p.pp_page', 'p.pp_propname'=>Attachments::PROP_URL]]]
+			[
+				'rev'=>['INNER JOIN', ['page_latest=rev_id', 'rev_deleted=0']],
+				'patt'=>['LEFT JOIN', ['page_id=patt.pp_page', 'patt.pp_propname'=>self::getAttachPropname($title)]],
+				'purl'=>['LEFT JOIN', ['page_id=purl.pp_page', 'purl.pp_propname'=>self::PROP_URL]],
+			]
 		);
 		if ($count)
 			return $res->fetchObject()->count;
