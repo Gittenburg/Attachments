@@ -34,7 +34,7 @@ class Attachments {
 	}
 
 	public static function countAttachments($title){
-		return self::getFiles($title, true) + self::getSubpages($title, true);
+		return self::getFiles($title, true) + self::getPages($title, true);
 	}
 
 	public static function getFiles($title, $count = FALSE){
@@ -57,7 +57,7 @@ class Attachments {
 		return RepoGroup::singleton()->getLocalRepo()->findFiles($titles);
 	}
 
-	public static function getSubpages(Title $title, $count = FALSE){
+	public static function getPages(Title $title, $count = FALSE){
 		$dbr = wfGetDB(DB_REPLICA);
 		$results = [];
 		$res = $dbr->select(
@@ -97,10 +97,13 @@ class Attachments {
 	public static function makeList(Title $title, $context) {
 		$links = [];
 
-		foreach( self::getSubpages($title) as $res ) {
+		foreach( self::getPages($title) as $res ) {
 			$subtitle = $res['title'];
-			if (strpos($subtitle->getPrefixedText(), $title->getPrefixedText() . '/') === 0)
+			if (strpos($subtitle->getPrefixedText(), $title->getPrefixedText() . '/') === 0){
 				$subtitle = substr($subtitle, strlen($title)+1);
+				if (strpos($subtitle, '/') !== false && $res['title']->getBaseTitle()->exists())
+					continue;
+			}
 			$key = mb_convert_case($subtitle, MB_CASE_UPPER, 'UTF-8');
 			if ($subtitle == ''){
 				$subtitle = '/';
