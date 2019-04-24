@@ -39,7 +39,7 @@ class SpecialAttach extends SpecialUpload {
 			}
 		}
 		parent::execute($arg);
-		$out->setPageTitle(wfMessage('attach-page', $arg)->escaped());
+		$out->setPageTitle(wfMessage('attach-page', $this->arg)->escaped());
 	}
 
 	function showUploadForm($form){

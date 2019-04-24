@@ -67,8 +67,8 @@ class AttachmentsHooks {
 			return;
 		$tpl->data['page_actions']['attach'] = [
 			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach',
-			'text' => 'Anhängen',
-			'href' => Title::newFromText('Special:Attach/'.$tpl->getSkin()->getTitle()->getText())->getLocalURL()
+			'itemtitle' => wfMessage('attachments-verb'),
+			'href' => Title::newFromText('Special:Attach/'.$tpl->getSkin()->getTitle()->getPrefixedText())->getLocalURL()
 		];
 	}
 
