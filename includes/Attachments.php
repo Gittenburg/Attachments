@@ -136,7 +136,7 @@ class Attachments {
 				$articles[] = $link;
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
-			return Linker::specialLink('Attach/'.$title->getPrefixedText(), 'attachments-add-new')
+			return Linker::linkKnown(SpecialPage::getTitleFor('Attach', $title->getPrefixedText()), wfMessage('attachments-add-new'))
 				. (new CategoryViewer($title, $context))->formatList($articles, $articles_start_char);
 		}
 	}
