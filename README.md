@@ -14,7 +14,7 @@ For enabled namespaces the attachments of an article are displayed in an automat
 * You can link files added through `Special:Attach` relatively with `[[File:{{FILEPREFIX}}filename.jpg]]`.
 * Enable [$wgCountCategorizedImagesAsUsed](https://www.mediawiki.org/wiki/Manual:$wgCountCategorizedImagesAsUsed) to exclude attached files from `Special:UnusedImages`.
 * Attachments and external URLs are both stored as [page props](https://www.mediawiki.org/wiki/Manual:Page_props_table), meaning they can be queried with [API:Pageprops](https://www.mediawiki.org/wiki/API:Pageprops) and [API:Pageswithprop](https://www.mediawiki.org/wiki/API:Pageswithprop).
-* You can change how attachments are sorted with the `BeforeSortAttachments` hook.
+* You can access attachments before they are sorted with the `BeforeSortAttachments(&$links)` hook, where links is an associative array mapping string keys to HTML links. Return false to take over the sorting.
 
 ## Setup
 
