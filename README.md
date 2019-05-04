@@ -26,6 +26,8 @@ Then enable the extension for the desired namespaces, e.g:
 
 	$wgAttachmentsNamespaces[NS_MAIN] = true;
 
+It is recommended to set up a [job runner](https://www.mediawiki.org/wiki/Manual:Job_queue).
+
 ## Credits
 
 This extension is essentially a rewrite of PerPageResources by Mathias Ertl, which consists of [Extension:Resources](https://fs.fsinf.at/wiki/Resources), [Extension:AddResource](https://fs.fsinf.at/wiki/AddResource) and [Extension:ExternalRedirects](https://github.com/mathiasertl/ExternalRedirects). This extension replaces all three, notable differences are:
