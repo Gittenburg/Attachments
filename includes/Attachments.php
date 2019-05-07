@@ -124,7 +124,7 @@ class Attachments {
 			$label = $file->getTitle()->getText();
 			if (strpos($label, self::getFilePrefix($title)) === 0)
 				$label = substr($label, strlen(self::getFilePrefix($title)));
-			$links[$label] = Linker::makeMediaLinkFile($file->getTitle(), $file, $label)
+			$links[mb_convert_case($label, MB_CASE_UPPER, 'UTF-8')] = Linker::makeMediaLinkFile($file->getTitle(), $file, $label)
 				. self::getDetailLink($file->getTitle());
 		}
 
