@@ -94,10 +94,10 @@ class Attachments {
 		return " (".Linker::linkKnown($title, "details").")";
 	}
 
-	public static function makeList(Title $title, $context) {
+	public static function makeList(Title $title, $pages, $files, $context) {
 		$links = [];
 
-		foreach( self::getPages($title) as $res ) {
+		foreach( $pages as $res ) {
 			$subtitle = $res['title'];
 			if (strpos($subtitle->getPrefixedText(), $title->getPrefixedText() . '/') === 0){
 				$subtitle = substr($subtitle, strlen($title)+1);
@@ -120,7 +120,7 @@ class Attachments {
 				$links[$key] = Linker::linkKnown($res['title'], $subtitle);
 		}
 
-		foreach( self::getFiles($title) as $file ) {
+		foreach( $files as $file ) {
 			$label = $file->getTitle()->getText();
 			if (strpos($label, self::getFilePrefix($title)) === 0)
 				$label = substr($label, strlen(self::getFilePrefix($title)));
@@ -128,7 +128,11 @@ class Attachments {
 				. self::getDetailLink($file->getTitle());
 		}
 
-		if (count($links) > 0){
+		$attachTarget = SpecialPage::getTitleFor('Attach', $title->getPrefixedText());
+
+		if (count($links) == 0){
+			return wfMessage('no-attachments', $attachTarget);
+		} else {
 			if (Hooks::run('BeforeSortAttachments', [&$links]))
 				ksort($links);
 
@@ -139,7 +143,7 @@ class Attachments {
 				$articles[] = $link;
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
-			return Linker::linkKnown(SpecialPage::getTitleFor('Attach', $title->getPrefixedText()), wfMessage('attachments-add-new'))
+			return Linker::linkKnown($attachTarget, wfMessage('attachments-add-new'))
 				. (new CategoryViewer($title, $context))->formatList($articles, $articles_start_char);
 		}
 	}

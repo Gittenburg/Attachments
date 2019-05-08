@@ -1,8 +1,9 @@
 {
+	"attachments": "Attachments",
 	"attachments-desc": "Attach files and links to pages.",
-	"attachments-noun": "Attachments",
 	"attachments-verb": "Attach",
 	"attachments-add-new": "Add new attachment",
+	"no-attachments": "This page has no attachments yet but you can [[$1|add some]].",
 	"attach-page": "Attaching to \"$1\"",
 	"attachments-heading-add-subpage": "Add subpage",
 	"attachments-subpage-name": "Name of subpage",

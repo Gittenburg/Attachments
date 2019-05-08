@@ -1,8 +1,9 @@
 {
+	"attachments": "Anhänge",
 	"attachments-desc": "Hänge Dateien und Links an Seiten an.",
-	"attachments-noun": "Anhänge",
 	"attachments-verb": "Anhängen",
 	"attachments-add-new": "Neuen Anhang hinzufügen",
+	"no-attachments": "Diese Seite hat noch keine Anhänge, du kannst aber [[$1|neue hinzufügen]].",
 	"attach-page": "Anhängen zu „$1“",
 	"attachments-heading-add-subpage": "Unterseite hinzufügen",
 	"attachments-subpage-name": "Name der Unterseite",

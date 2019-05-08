@@ -43,11 +43,15 @@ class AttachmentsHooks {
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		if (!Attachments::isViewingApplicablePage($out)) return true;
 
-		$html = Attachments::makeList($out->getTitle(), $out->getContext());
+		$title = $out->getTitle();
 
-		if ($html != null){
+		$pages = Attachments::getPages($title);
+		$files = Attachments::getFiles($title);
+		$html = Attachments::makeList($title, $pages, $files, $out->getContext());
+
+		if (count($pages)+count($files) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
 			$out->addHTML("<div id=ext-attachments class=mw-parser-output>"); # class for external link icon
-			$out->addWikitext("== ".wfMessage('attachments-noun')."==");
+			$out->addWikitext("== ".wfMessage('attachments')."==");
 
 			if ($skin->getSkinName() == 'minerva' && substr($out->mBodytext, -6) == '</div>')
 				# hack to make section collapsible (removing </div>)
@@ -79,11 +83,11 @@ class AttachmentsHooks {
 		$title = $sktemplate->getTitle();
 
 		$count = Attachments::countAttachments($title);
-		if ($count > 0)
+		if ($count > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title]))
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
-					'text'=> wfMessage('attachments-noun') . " ($count)",
-					'href' => '#' . wfMessage('attachments-noun')
+					'text'=> wfMessage('attachments') . " ($count)",
+					'href' => '#' . wfMessage('attachments')
 				]
 			] + array_slice($links['namespaces'], 1);
 		$links['views'] = array_slice($links['views'], 0, 2) + [
