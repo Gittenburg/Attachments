@@ -21,21 +21,22 @@ class AttachmentsHooks {
 		return [self::msg(wfMessage('attached-to').' <b>'.Linker::linkKnown($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
 	}
 
-	static $didExtURL = false;
-
 	public static function renderExtURL( Parser $parser, $url) {
-		if (self::$didExtURL){
+		$out = $parser->getOutput();
+		if ($out->getExtensionData('did-exturl')){
 			$parser->getOutput()->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
 			return self::msg(wfMessage('attachments-exturl-twice'), 'error');
 		}
-		self::$didExtURL = true;
+
+		$out->setExtensionData('did-exturl', true);
 		$status = Attachments::validateURL($url);
+
 		if ($status === true){
-			$parser->getOutput()->setProperty(Attachments::PROP_URL, $url);
+			$out->setProperty(Attachments::PROP_URL, $url);
 			return self::msg("&rarr; $url");
 		} else {
-			$parser->getOutput()->setProperty(Attachments::PROP_URL, 'invalid');
-			$parser->getOutput()->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
+			$out->setProperty(Attachments::PROP_URL, 'invalid');
+			$out->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
 			return self::msg($status.' '.wfEscapeWikiText($url), 'error');
 		}
 	}
