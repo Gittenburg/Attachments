@@ -1,8 +1,9 @@
 <?php
 class AttachmentsHooks {
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'attach', [ self::class, 'renderAttach' ]);
-		$parser->setFunctionHook( 'exturl', [ self::class, 'renderExtURL' ]);
+		$parser->setFunctionHook('attach', [ self::class, 'renderAttach' ]);
+		$parser->setFunctionHook('exturl', [ self::class, 'renderExtURL' ]);
+		$parser->setFunctionHook('fileprefix', [ self::class, 'renderFilePrefix'], SFH_NO_HASH);
 	}
 
 	private static function msg($msg, $class=''){
@@ -39,6 +40,12 @@ class AttachmentsHooks {
 			$out->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
 			return self::msg($status.' '.wfEscapeWikiText($url), 'error');
 		}
+	}
+
+	public static function renderFilePrefix( Parser $parser, $path) {
+		$level = substr_count($path.'/', '../');
+		$parts = explode('/', $parser->getTitle()->getPrefixedText(), 25);
+		return Attachments::getFilePrefix(implode('/', array_slice($parts, 0, count($parts)-$level)));
 	}
 
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
@@ -119,7 +126,7 @@ class AttachmentsHooks {
 	}
 	public static function onParserGetVariableValueSwitch( &$parser, &$cache, &$magicWordId, &$ret, &$frame ) {
 		if ($magicWordId == 'fileprefix')
-			$ret = Attachments::getFilePrefix($parser->getTitle()->getText());
+			$ret = Attachments::getFilePrefix($parser->getTitle()->getPrefixedText());
 		return true;
 	}
 }

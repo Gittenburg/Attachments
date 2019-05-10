@@ -1,6 +1,8 @@
 <?php
 class Attachments {
 	public static function getFilePrefix($title){
+		if (empty($title))
+			return '';
 		return str_replace([':', '/'], '-', $title).' - ';
 	}
 
