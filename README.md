@@ -36,7 +36,7 @@ This extension is essentially a rewrite of PerPageResources by Mathias Ertl, whi
 * no open redirects, just links
 * attachments are shown at the end of pages, as opposed to on a special page
 
-`resources/folder-plus.svg` is from [IcoMoon-Free](https://github.com/Keyamoon/IcoMoon-Free) and licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/). The image was minified and colored.
+`resources/paperclip.svg` is from [IcoMoon-Free](https://github.com/Keyamoon/IcoMoon-Free) and licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/). The image was minified and colored.
 
 ## Planned features
 

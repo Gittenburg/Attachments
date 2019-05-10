@@ -70,11 +70,19 @@ class AttachmentsHooks {
 	public static function onMinervaPreRender( MinervaTemplate $tpl ) {
 		if (!Attachments::isViewingApplicablePage($tpl->getSkin()) || Attachments::hasExtURL($tpl->getSkin()->getTitle()))
 			return;
-		$tpl->data['page_actions']['attach'] = [
-			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach',
-			'itemtitle' => wfMessage('attachments-verb'),
-			'href' => Title::newFromText('Special:Attach/'.$tpl->getSkin()->getTitle()->getPrefixedText())->getLocalURL()
-		];
+
+		$title = $tpl->getSkin()->getTitle();
+		$count = Attachments::countAttachments($title);
+		$action = ['class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attachments'];
+
+		if ($count > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
+			$action['itemtitle'] = wfMessage('attachments');
+			$action['href'] = '#' . Sanitizer::escapeIdForAttribute(wfMessage('attachments'));
+		} else {
+			$action['itemtitle'] = wfMessage('attachments-verb');
+			$action['href'] = Title::newFromText('Special:Attach/'.$title->getPrefixedText())->getLocalURL();
+		}
+		$tpl->data['page_actions']['attachments'] = $action;
 	}
 
 	public static function onSkinTemplateNavigation( SkinTemplate &$sktemplate, array &$links ) {

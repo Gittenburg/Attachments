@@ -42,10 +42,10 @@
 	"ResourceModules": {
 		"ext.attachments.minerva-icon": {
 			"class": "ResourceLoaderImageModule",
-			"selector": ".mw-ui-icon-minerva-attach:before",
+			"selector": ".mw-ui-icon-minerva-attachments:before",
 			"useDataURI": false,
 			"images": {
-				"attach": "resources/folder-plus.svg"
+				"attachments": "resources/paperclip.svg"
 			}
 		}
 	},
