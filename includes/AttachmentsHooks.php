@@ -79,17 +79,19 @@ class AttachmentsHooks {
 			return;
 
 		$title = $tpl->getSkin()->getTitle();
-		$count = Attachments::countAttachments($title);
-		$action = ['class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attachments'];
 
-		if ($count > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
-			$action['itemtitle'] = wfMessage('attachments');
-			$action['href'] = '#' . Sanitizer::escapeIdForAttribute(wfMessage('attachments'));
-		} else {
-			$action['itemtitle'] = wfMessage('attachments-verb');
-			$action['href'] = Title::newFromText('Special:Attach/'.$title->getPrefixedText())->getLocalURL();
-		}
-		$tpl->data['page_actions']['attachments'] = $action;
+		if (Attachments::countAttachments($title) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title]))
+			$tpl->data['page_actions']['attachments'] = [
+				'itemtitle' => wfMessage('attachments'),
+				'href' => '#' . Sanitizer::escapeIdForAttribute(wfMessage('attachments')),
+				'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attachments'
+			];
+
+		$tpl->data['page_actions']['attach'] = [
+			'itemtitle' => wfMessage('attachments-add-new'),
+			'href' => Title::newFromText('Special:Attach/' . $title->getPrefixedText())->getLocalURL(),
+			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach'
+		];
 	}
 
 	public static function onSkinTemplateNavigation( SkinTemplate &$sktemplate, array &$links ) {
