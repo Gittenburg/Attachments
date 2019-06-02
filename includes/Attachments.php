@@ -61,19 +61,17 @@ class Attachments {
 
 	public static function getPages(Title $title, $count = FALSE){
 		$dbr = wfGetDB(DB_REPLICA);
-		$results = [];
+		$subpageCond = $dbr->makeList([
+			'page_title'.$dbr->buildLike($title->getDBkey().'/', $dbr->anyString()),
+			'page_namespace'=>$title->getNamespace()
+		], LIST_AND);
+
 		$res = $dbr->select(
-			['page', 'rev'=>'revision', 'patt'=>'page_props', 'purl' => 'page_props'],
-			$count ? ['count'=>'count(*)'] : ['page_title', 'page_namespace', 'purl.pp_value'],
+			['page', 'rev'=>'revision', 'patt'=>'page_props', 'purl' => 'page_props', 'pp_defaultsort' => 'page_props'],
+			$count ? ['count'=>'count(*)'] : ['page_title', 'page_namespace', 'purl.pp_value', 'defaultsort'=>'pp_defaultsort.pp_value'],
 			[
-				$dbr->makeList([
-					$dbr->makeList([
-						'page_title'.$dbr->buildLike($title->getDBkey().'/', $dbr->anyString()),
-						'page_namespace'=>$title->getNamespace()
-					], LIST_AND),
-					'patt.pp_propname is not null'
-				], LIST_OR),
-				'page_is_redirect=0',
+				$dbr->makeList([$subpageCond, 'patt.pp_propname is not null'], LIST_OR),
+				'page_is_redirect = 0',
 				'page_namespace !=' . NS_FILE
 			],
 			__METHOD__,
@@ -82,12 +80,15 @@ class Attachments {
 				'rev'=>['INNER JOIN', ['page_latest=rev_id', 'rev_deleted=0']],
 				'patt'=>['LEFT JOIN', ['page_id=patt.pp_page', 'patt.pp_propname'=>self::getAttachPropname($title)]],
 				'purl'=>['LEFT JOIN', ['page_id=purl.pp_page', 'purl.pp_propname'=>self::PROP_URL]],
+				'pp_defaultsort'=>['LEFT JOIN', ['page_id=pp_defaultsort.pp_page', 'pp_defaultsort.pp_propname="defaultsort"']]
 			]
 		);
 		if ($count)
 			return $res->fetchObject()->count;
+
+		$results = [];
 		foreach ($res as $row){
-			$results[] = ["title"=> Title::newFromRow($row), "url"=>$row->pp_value];
+			$results[] = ["title"=> Title::newFromRow($row), "url"=>$row->pp_value, 'defaultsort'=>$row->defaultsort];
 		}
 		return $results;
 	}
@@ -96,21 +97,30 @@ class Attachments {
 		return " (".Linker::linkKnown($title, "details").")";
 	}
 
+	private static function stripTitle(string $subtitle, string $title){
+		if (strpos($subtitle, $title . '/') === 0)
+			$subtitle = substr($subtitle, strlen($title) + 1);
+		return $subtitle;
+	}
+
 	public static function makeList(Title $title, $pages, $files, $context) {
 		$links = [];
 
 		foreach( $pages as $res ) {
-			$subtitle = $res['title'];
-			if (strpos($subtitle->getPrefixedText(), $title->getPrefixedText() . '/') === 0){
-				$subtitle = substr($subtitle, strlen($title)+1);
-				if (strpos($subtitle, '/') !== false && $res['title']->getBaseTitle()->exists())
-					continue;
-			}
-			$key = mb_convert_case($subtitle, MB_CASE_UPPER, 'UTF-8');
+			$subtitle = self::stripTitle($res['title']->getPrefixedText(), $title->getPrefixedText());
+
+			if (strpos($subtitle, '/') !== false && $res['title']->getBaseTitle()->exists())
+				continue; # hide subsubpages
+
+			$key = mb_convert_case($res['defaultsort'] ? self::stripTitle($res['defaultsort'], $title->getText()) : $subtitle, MB_CASE_UPPER, 'UTF-8');
 			if ($subtitle == ''){
 				$subtitle = '/';
 				$key = ' ';
 			}
+
+			if (array_key_exists($key, $links))
+				$key .= ' '; # prevent possible overwrites through defaultsort
+
 			if ($res['url']) {
 				if ($res['url'] == 'invalid')
 					$links[$key] = '<a class=new title="'.wfMessage('attachments-invalid-url')->escaped().'">'
