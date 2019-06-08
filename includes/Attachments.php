@@ -1,5 +1,9 @@
 <?php
 class Attachments {
+	const PROP_URL = 'attachments-url';
+	const PROP_ATTACH = 'attach';
+	const PROP_IGNORE_SUBPAGES = 'attachments-ignore-subpages';
+
 	public static function getFilePrefix($title){
 		if (empty($title))
 			return '';
@@ -22,8 +26,6 @@ class Attachments {
 			self::mayHaveAttachments($ctx->getTitle()) &&
 			$ctx->getRequest()->getText('action', 'view') == 'view';
 	}
-	const PROP_URL = 'attachments-url';
-	const PROP_ATTACH = 'attach';
 
 	public static function hasExtURL($title){
 		return !empty(PageProps::getInstance()->getProperties($title, self::PROP_URL));
@@ -61,16 +63,19 @@ class Attachments {
 
 	public static function getPages(Title $title, $count = FALSE){
 		$dbr = wfGetDB(DB_REPLICA);
-		$subpageCond = $dbr->makeList([
+		$subpageCond = [
 			'page_title'.$dbr->buildLike($title->getDBkey().'/', $dbr->anyString()),
 			'page_namespace'=>$title->getNamespace()
-		], LIST_AND);
+		];
+		foreach (PageProps::getInstance()->getProperties($title, self::PROP_IGNORE_SUBPAGES) as $id => $pattern){
+			$subpageCond[] = 'page_title NOT '.$dbr->buildLike($title->getDBKey() . '/' . $pattern, $dbr->anyString());
+		}
 
 		$res = $dbr->select(
 			['page', 'rev'=>'revision', 'patt'=>'page_props', 'purl' => 'page_props', 'pp_defaultsort' => 'page_props'],
 			$count ? ['count'=>'count(*)'] : ['page_title', 'page_namespace', 'purl.pp_value', 'defaultsort'=>'pp_defaultsort.pp_value'],
 			[
-				$dbr->makeList([$subpageCond, 'patt.pp_propname is not null'], LIST_OR),
+				$dbr->makeList([$dbr->makeList($subpageCond, LIST_AND), 'patt.pp_propname is not null'], LIST_OR),
 				'page_is_redirect = 0',
 				'page_namespace !=' . NS_FILE
 			],

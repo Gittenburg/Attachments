@@ -13,6 +13,7 @@ For enabled namespaces the attachments of an article are displayed in an automat
 * `#attach` also works on regular articles.
 * You can link files added through `Special:Attach` relatively with `[[File:{{FILEPREFIX}}filename.jpg]]` (or `{{FILEPREFIX:..}}` for the parent page).
 * Enable [$wgCountCategorizedImagesAsUsed](https://www.mediawiki.org/wiki/Manual:$wgCountCategorizedImagesAsUsed) to exclude attached files from `Special:UnusedImages`.
+* You can exclude subpages starting with a specific prefix from the autoindex with `{{#attachments ignore subpages: prefix}}` on the parent page.
 * Attachments and external URLs are both stored as [page props](https://www.mediawiki.org/wiki/Manual:Page_props_table), meaning they can be queried with [API:Pageprops](https://www.mediawiki.org/wiki/API:Pageprops) and [API:Pageswithprop](https://www.mediawiki.org/wiki/API:Pageswithprop).
 * You can access attachments before they are sorted with the `BeforeSortAttachments(&$links)` hook, where links is an associative array mapping string keys to HTML links. Return false to take over the sorting.
 
@@ -41,4 +42,3 @@ The icons in `resources/` are from [Feather](https://feathericons.com/) and lice
 ## Planned features
 
 * Magic words for statistics: `{{NUMBEROFATTACHMENTS}}` and `{{ATTACHMENTSFORNS:index}}`
-* `{{#attachments hide subpages: prefix}}` for use on content pages to hide subpages starting with the given prefix from the autoindex.

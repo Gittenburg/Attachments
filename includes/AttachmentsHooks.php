@@ -4,6 +4,7 @@ class AttachmentsHooks {
 		$parser->setFunctionHook('attach', [ self::class, 'renderAttach' ]);
 		$parser->setFunctionHook('exturl', [ self::class, 'renderExtURL' ]);
 		$parser->setFunctionHook('fileprefix', [ self::class, 'renderFilePrefix'], SFH_NO_HASH);
+		$parser->setFunctionHook('attachments ignore subpages', [ self::class, 'renderAttachmentsIgnoreSubpages']);
 	}
 
 	private static function msg($msg, $class=''){
@@ -46,6 +47,11 @@ class AttachmentsHooks {
 		$level = substr_count($path.'/', '../');
 		$parts = explode('/', $parser->getTitle()->getPrefixedText(), 25);
 		return Attachments::getFilePrefix(implode('/', array_slice($parts, 0, count($parts)-$level)));
+	}
+
+	public static function renderAttachmentsIgnoreSubpages(Parser $parser, $prefix){
+		$value = Title::newFromText($parser->mStripState->unstripBoth($prefix))->getDBKey();
+		$parser->getOutput()->setProperty(Attachments::PROP_IGNORE_SUBPAGES, $value);
 	}
 
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
