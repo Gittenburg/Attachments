@@ -145,10 +145,8 @@ class Attachments {
 				. self::getDetailLink($file->getTitle());
 		}
 
-		$attachTarget = SpecialPage::getTitleFor('Attach', $title->getPrefixedText());
-
 		if (count($links) == 0){
-			return wfMessage('no-attachments', $attachTarget);
+			return wfMessage('no-attachments', Linker::linkKnown($title, wfMessage('no-attachments-link'), [], 'action=attach'))->text();
 		} else {
 			if (Hooks::run('BeforeSortAttachments', [&$links]))
 				ksort($links);
@@ -160,7 +158,7 @@ class Attachments {
 				$articles[] = $link;
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
-			return Linker::linkKnown($attachTarget, wfMessage('attachments-add-new'))
+			return Linker::linkKnown($title, wfMessage('attachments-add-new'), [], 'action=attach')
 				. (new CategoryViewer($title, $context))->formatList($articles, $articles_start_char);
 		}
 	}

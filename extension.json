@@ -14,7 +14,7 @@
 	"AutoloadClasses": {
 		"Attachments": "includes/Attachments.php",
 		"AttachmentsHooks": "includes/AttachmentsHooks.php",
-		"SpecialAttach": "includes/SpecialAttach.php"
+		"AttachAction": "includes/AttachAction.php"
 	},
 	"ExtensionMessagesFiles": {
 		"AttachmentsMagic": "includes/Attachments.i18n.php"
@@ -29,8 +29,8 @@
 		"ListDefinedTags": "AttachmentsHooks::onListDefinedTags",
 		"ChangeTagsListActive": "AttachmentsHooks::onListDefinedTags"
 	},
-	"SpecialPages": {
-		"Attach": "SpecialAttach"
+	"Actions": {
+		"attach": "AttachAction"
 	},
 	"MessagesDirs" : {
 		"Attachments": ["i18n"]

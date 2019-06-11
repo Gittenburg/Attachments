@@ -6,12 +6,12 @@ MediaWiki extension to attach files and external links to pages.
 * files can be attached to a page with `{{#attach: pagename}}`
 * external links can be defined as subpages containing `{{#exturl: URL}}`
 
-For enabled namespaces the attachments of an article are displayed in an automatically generated section at its end. To facilitate adding attachments a special page, `Special:Attach` is provided, which is linked as a page action in the Vector and Minerva skins.
+For enabled namespaces the attachments of an article are displayed in an automatically generated section at its end. To facilitate adding attachments an `attach` page action is provided, which is linked in the Vector and Minerva skins.
 
 ## Tips
 
 * `#attach` also works on regular articles.
-* You can link files added through `Special:Attach` relatively with `[[File:{{FILEPREFIX}}filename.jpg]]` (or `{{FILEPREFIX:..}}` for the parent page).
+* You can link files added through `action=attach` relatively with `[[File:{{FILEPREFIX}}filename.jpg]]` (or `{{FILEPREFIX:..}}` for the parent page).
 * Enable [$wgCountCategorizedImagesAsUsed](https://www.mediawiki.org/wiki/Manual:$wgCountCategorizedImagesAsUsed) to exclude attached files from `Special:UnusedImages`.
 * You can exclude subpages starting with a specific prefix from the autoindex with `{{#attachments ignore subpages: prefix}}` on the parent page.
 * Attachments and external URLs are both stored as [page props](https://www.mediawiki.org/wiki/Manual:Page_props_table), meaning they can be queried with [API:Pageprops](https://www.mediawiki.org/wiki/API:Pageprops) and [API:Pageswithprop](https://www.mediawiki.org/wiki/API:Pageswithprop).

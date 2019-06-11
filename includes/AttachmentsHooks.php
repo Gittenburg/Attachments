@@ -95,7 +95,7 @@ class AttachmentsHooks {
 
 		$tpl->data['page_actions']['attach'] = [
 			'itemtitle' => wfMessage('attachments-add-new'),
-			'href' => Title::newFromText('Special:Attach/' . $title->getPrefixedText())->getLocalURL(),
+			'href' => $title->getLocalURL('action=attach'),
 			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach'
 		];
 	}
@@ -117,7 +117,7 @@ class AttachmentsHooks {
 		$links['views'] = array_slice($links['views'], 0, 2) + [
 			'add_attachment' => [
 				'text'=> wfMessage('attachments-verb'),
-				'href' => Title::newFromText('Special:Attach/'.$title->getPrefixedText())->getLocalURL(),
+				'href' => $title->getLocalURL('action=attach'),
 				'class' => ''
 			]
 		] + array_slice($links['views'], 2);
