@@ -3,7 +3,7 @@
 	"type": "other",
 	"license-name": "MIT",
 	"author": "Gittenburg",
-	"url": "https://github.com/Gittenburg/Attachments",
+	"url": "https://www.mediawiki.org/wiki/Extension:Attachments",
 	"version": "0.1.0",
 	"descriptionmsg": "attachments-desc",
 	"config": {
