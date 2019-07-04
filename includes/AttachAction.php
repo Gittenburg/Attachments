@@ -80,7 +80,7 @@ class SubpageForm extends HTMLForm {
 		$this->setSubmitText(wfMessage('attach-addsubpage-action'));
 		$this->setAutocomplete('off');
 		$this->addPreText('<h2>'.wfMessage('attach-addsubpage-heading')->escaped().'</h2>');
-		$this->addPreText(wfMessage('attach-addsubpage-text'));
+		$this->addPreText(wfMessage('attach-addsubpage-text')->parseAsBlock());
 		$this->setAction($this->getTitle()->getFullURL(['action'=>'attach']));
 	}
 
