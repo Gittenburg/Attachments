@@ -2,24 +2,33 @@
 	"attachments": "Attachments",
 	"attachments-desc": "Attach files and links to pages.",
 	"attachments-verb": "Attach",
+
 	"attachments-add-new": "Add new attachment",
-	"no-attachments": "This page has no attachments yet but you can $1.",
-	"no-attachments-link": "add some",
+	"attachments-add-first": "This page has no attachments yet but you can $1.",
+	"attachments-add-first-link": "add some",
+
 	"attach-page": "Attaching to \"$1\"",
-	"attachments-heading-add-subpage": "Add subpage",
-	"attachments-subpage-name": "Name of subpage",
-	"attachments-action-add-subpage": "Add",
-	"attachments-heading-upload": "Upload file",
-	"attachments-heading-add-link": "Add link",
-	"attachments-addlinktext": "",
-	"attachments-title": "Title",
-	"attachments-action-add-link": "Add link",
+	"attach-text": "",
+	"attach-invalidtitle": "invalid name",
+	"attach-articleexists": "A page of that name [[$1|already exists]].",
+
+	"attach-addsubpage-heading": "Add subpage",
+	"attach-addsubpage-text": "Wiki pages can easily be edited collaboratively.",
+	"attach-addsubpage-label": "Name of subpage",
+	"attach-addsubpage-action": "Create subpage",
+
+	"attach-upload-heading": "Upload file",
+	"attach-upload-category": "Attached files",
+
+	"attach-addlink-heading": "Add link",
+	"attach-addlink-text": "",
+	"attach-addlink-title": "Title",
+	"attach-addlink-url": "URL",
+	"attach-addlink-action": "Add link",
+	"attach-addlink-editmsg": "create external link",
+
 	"attached-to": "attached to",
 	"attachments-invalid-url": "invalid URL",
 	"attachments-exturl-twice": "exturl was already set",
-	"attachments-exturl-edit-msg": "create external link",
-	"attachments-articleexists": "A page of that name [[$1|already exists]].",
-	"attachments-invalidtitle": "invalid name",
-	"attachments-category-attached-files": "Attached files",
 	"attachments-category-exturl-error": "Pages with exturl errors"
 }

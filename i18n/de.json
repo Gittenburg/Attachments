@@ -2,23 +2,30 @@
 	"attachments": "Anhänge",
 	"attachments-desc": "Hänge Dateien und Links an Seiten an.",
 	"attachments-verb": "Anhängen",
+
 	"attachments-add-new": "Neuen Anhang hinzufügen",
-	"no-attachments": "Diese Seite hat noch keine Anhänge, du kannst aber $1.",
-	"no-attachments-link": "neue hinzufügen",
+	"attachments-add-first": "Diese Seite hat noch keine Anhänge, du kannst aber $1.",
+	"attachments-add-first-link": "neue hinzufügen",
+
 	"attach-page": "Anhängen zu „$1“",
-	"attachments-heading-add-subpage": "Unterseite hinzufügen",
-	"attachments-subpage-name": "Name der Unterseite",
-	"attachments-action-add-subpage": "Anlegen",
-	"attachments-heading-upload": "Datei hochladen",
-	"attachments-heading-add-link": "Link hinzufügen",
-	"attachments-title": "Titel",
-	"attachments-action-add-link": "Link hinzufügen",
+	"attach-invalidtitle": "ungültiger Name",
+	"attach-articleexists": "Unter diesem Namen existiert bereits [[$1|eine Seite]].",
+
+	"attach-addsubpage-heading": "Unterseite hinzufügen",
+	"attach-addsubpage-text": "Wikiseiten können leicht gemeinschaftlich bearbeitet werden.",
+	"attach-addsubpage-label": "Name der Unterseite",
+	"attach-addsubpage-action": "Erstelle Unterseite",
+
+	"attach-upload-heading": "Datei hochladen",
+	"attach-upload-category": "Angehängte Dateien",
+
+	"attach-addlink-heading": "Link hinzufügen",
+	"attach-addlink-title": "Titel",
+	"attach-addlink-action": "Link hinzufügen",
+	"attach-addlink-editmsg": "erstelle externen Link",
+
 	"attached-to": "angehängt an",
 	"attachments-invalid-url": "ungültige URL",
 	"attachments-exturl-twice": "exturl wurde bereits gesetzt",
-	"attachments-exturl-edit-msg": "erstelle externen Link",
-	"attachments-articleexists": "Unter diesem Namen existiert bereits [[$1|eine Seite]].",
-	"attachments-invalidtitle": "ungültiger Name",
-	"attachments-category-attached-files": "Angehängte Dateien",
 	"attachments-category-exturl-error": "Seiten mit exturl Fehlern"
 }

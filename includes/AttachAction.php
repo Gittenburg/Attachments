@@ -31,6 +31,7 @@ class SpecialAttach extends SpecialUpload {
 					$_FILES['wpUploadFile']['name'] = $prefix . $req->getFileName('wpUploadFile');
 			}
 		}
+		$out->addWikiText(wfMessage('attach-text'));
 		parent::execute('');
 		$out->setPageTitle(wfMessage('attach-page', $title->getPrefixedText())->escaped());
 	}
@@ -48,8 +49,7 @@ class SpecialAttach extends SpecialUpload {
 		$form->setAction($this->title->getFullURL(['action'=>'attach']));
 		$form->setTitle($this->title);
 
-		#$form->addHiddenField('wpArg', $this->title);
-		$out->addHTML('<h2>'.wfMessage('attachments-heading-upload')->escaped().'</h2>');
+		$out->addHTML('<h2>'.wfMessage('attach-upload-heading')->escaped().'</h2>');
 		parent::showUploadForm($form);
 
 		# the JavaScript doesn't know about the prefix we add
@@ -72,14 +72,15 @@ class SubpageForm extends HTMLForm {
 				'type' => 'text',
 				'required' => true,
 				'validation-callback' => [self::class, 'validateSubpage'],
-				'label' => wfMessage('attachments-subpage-name'),
+				'label' => wfMessage('attach-addsubpage-label'),
 			]
 		], $context);
 		$this->setSubmitCallback([$this, 'submit']);
 		$this->setFormIdentifier('add-subpage');
-		$this->setSubmitText(wfMessage('attachments-action-add-subpage'));
+		$this->setSubmitText(wfMessage('attach-addsubpage-action'));
 		$this->setAutocomplete('off');
-		$this->addPreText('<h2>'.wfMessage('attachments-heading-add-subpage')->escaped().'</h2>');
+		$this->addPreText('<h2>'.wfMessage('attach-addsubpage-heading')->escaped().'</h2>');
+		$this->addPreText(wfMessage('attach-addsubpage-text'));
 		$this->setAction($this->getTitle()->getFullURL(['action'=>'attach']));
 	}
 
@@ -89,9 +90,9 @@ class SubpageForm extends HTMLForm {
 			return true;
 		$title = Title::newFromText($wgRequest->getVal('title'))->getSubpage(Title::capitalize($subpage));
 		if ($title === null)
-			return wfMessage('attachments-invalidtitle');
+			return wfMessage('attach-invalidtitle');
 		if ($title->exists())
-			return wfMessage('attachments-articleexists', $title->getPrefixedText());
+			return wfMessage('attach-articleexists', $title->getPrefixedText());
 		return true;
 	}
 
@@ -111,19 +112,19 @@ class  LinkForm extends HTMLForm {
 				'type' => 'text',
 				'required' => true,
 				'validation-callback' => [SubpageForm::class, 'validateSubpage'],
-				'label' => wfMessage('attachments-title')
+				'label' => wfMessage('attach-addlink-title')
 			], 'URL'=> [
 				'type' => 'url',
 				'required' => true,
 				'validation-callback' => [Attachments::class, 'validateURL'],
-				'label' => 'URL'
+				'label' => wfMessage('attach-addlink-url')
 			]
 		], $context);
 		$this->setSubmitCallback([$this, 'submit']);
 		$this->setFormIdentifier('add-link');
-		$this->setSubmitText(wfMessage('attachments-action-add-link'));
-		$this->addPreText('<h2>'.wfMessage('attachments-heading-add-link')->escaped().'</h2>');
-		$this->addPreText(wfMessage('attachments-addlinktext')->parse());
+		$this->setSubmitText(wfMessage('attach-addlink-action'));
+		$this->addPreText('<h2>'.wfMessage('attach-addlink-heading')->escaped().'</h2>');
+		$this->addPreText(wfMessage('attach-addlink-text')->parseAsBlock());
 		$this->setAutocomplete('off');
 		$this->setAction($this->getTitle()->getFullURL(['action'=>'attach']));
 	}
@@ -134,7 +135,7 @@ class  LinkForm extends HTMLForm {
 			$title->getSubpage(Title::capitalize($data['Subpage']))
 		)->doEditContent(
 			new WikitextContent("{{#exturl:${data['URL']}}}"),
-			wfMessage('attachments-exturl-edit-msg'), EDIT_NEW, false, null, null, ['attachments-add-exturl']
+			wfMessage('attach-addlink-editmsg'), EDIT_NEW, false, null, null, ['attachments-add-exturl']
 		);
 		$this->getOutput()->redirect($title->getFullURL());
 	}

@@ -146,7 +146,7 @@ class Attachments {
 		}
 
 		if (count($links) == 0){
-			return wfMessage('no-attachments', Linker::linkKnown($title, wfMessage('no-attachments-link'), [], 'action=attach'))->text();
+			return wfMessage('attachments-add-first', Linker::linkKnown($title, wfMessage('attachments-add-first-link'), [], 'action=attach'))->text();
 		} else {
 			if (Hooks::run('BeforeSortAttachments', [&$links]))
 				ksort($links);
