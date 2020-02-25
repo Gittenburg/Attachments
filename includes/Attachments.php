@@ -26,7 +26,8 @@ class Attachments {
 	public static function isViewingApplicablePage($ctx){
 		return $ctx->getTitle()->exists() &&
 			self::mayHaveAttachments($ctx->getTitle()) &&
-			$ctx->getRequest()->getText('action', 'view') == 'view';
+			$ctx->getOutput()->isArticle() &&
+			($ctx->getOutput()->getRevisionId() == 0 || $ctx->getOutput()->getRevisionId() == $ctx->getTitle()->getLatestRevID());
 	}
 
 	public static function hasExtURL($title){
