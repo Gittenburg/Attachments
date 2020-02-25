@@ -1,4 +1,6 @@
 <?php
+use MediaWiki\MediaWikiServices;
+
 class Attachments {
 	const PROP_URL = 'attachments-url';
 	const PROP_ATTACH = 'attach';
@@ -98,8 +100,8 @@ class Attachments {
 		return $results;
 	}
 
-	private static function getDetailLink($title){
-		return " (".Linker::linkKnown($title, "details").")";
+	private static function getDetailLink($linkRenderer, $title){
+		return " (".$linkRenderer->makeKnownLink($title, "details").")";
 	}
 
 	private static function stripTitle(string $subtitle, string $title){
@@ -110,6 +112,8 @@ class Attachments {
 
 	public static function makeList(Title $title, $pages, $files, $context) {
 		$links = [];
+
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 
 		foreach( $pages as $res ) {
 			$subtitle = self::stripTitle($res['title']->getPrefixedText(), $title->getPrefixedText());
@@ -132,9 +136,9 @@ class Attachments {
 									.htmlspecialchars($subtitle).'<span class=external></span></a>';
 				else
 					$links[$key] = Linker::makeExternalLink($res['url'], $subtitle);
-				$links[$key] .= self::getDetailLink($res['title']);
+				$links[$key] .= self::getDetailLink($linkRenderer, $res['title']);
 			} else
-				$links[$key] = Linker::linkKnown($res['title'], $subtitle);
+				$links[$key] = $linkRenderer->makeKnownLink($res['title'], $subtitle);
 		}
 
 		foreach( $files as $file ) {
@@ -142,11 +146,11 @@ class Attachments {
 			if (strpos($label, self::getFilePrefix($title)) === 0)
 				$label = substr($label, strlen(self::getFilePrefix($title)));
 			$links[mb_convert_case($label, MB_CASE_UPPER, 'UTF-8')] = Linker::makeMediaLinkFile($file->getTitle(), $file, $label)
-				. self::getDetailLink($file->getTitle());
+				. self::getDetailLink($linkRenderer, $file->getTitle());
 		}
 
 		if (count($links) == 0){
-			return wfMessage('attachments-add-first', Linker::linkKnown($title, wfMessage('attachments-add-first-link'), [], 'action=attach'))->text();
+			return wfMessage('attachments-add-first', $linkRenderer->makeKnownLink($title, wfMessage('attachments-add-first-link'), [], ['action'=>'attach']))->text();
 		} else {
 			if (Hooks::run('BeforeSortAttachments', [&$links]))
 				ksort($links);
@@ -158,7 +162,7 @@ class Attachments {
 				$articles[] = $link;
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
-			return Linker::linkKnown($title, wfMessage('attachments-add-new'), [], 'action=attach')
+			return $linkRenderer->makeKnownLink($title, wfMessage('attachments-add-new'), [], ['action'=>'attach'])
 				. (new CategoryViewer($title, $context))->formatList($articles, $articles_start_char);
 		}
 	}

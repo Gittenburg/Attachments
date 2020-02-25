@@ -20,7 +20,7 @@ class AttachmentsHooks {
 			# add category for $wgCountCategorizedImagesAsUsed
 			$parser->getOutput()->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
 
-		return [self::msg(wfMessage('attached-to').' <b>'.Linker::linkKnown($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
+		return [self::msg(wfMessage('attached-to').' <b>'.$parser->getLinkRenderer()->makeKnownLink($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
 	}
 
 	public static function renderExtURL( Parser $parser, $url) {
