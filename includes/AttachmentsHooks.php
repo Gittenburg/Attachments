@@ -65,7 +65,7 @@ class AttachmentsHooks {
 
 		if (count($pages)+count($files) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
 			$out->addHTML("<div id=ext-attachments class=mw-parser-output>"); # class for external link icon
-			$out->addWikitext("== ".wfMessage('attachments')."==");
+			$out->addWikiTextAsInterface("== ".wfMessage('attachments')."==");
 
 			if ($skin->getSkinName() == 'minerva' && substr($out->mBodytext, -6) == '</div>')
 				# hack to make section collapsible (removing </div>)

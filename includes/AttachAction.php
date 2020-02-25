@@ -31,7 +31,7 @@ class SpecialAttach extends SpecialUpload {
 					$_FILES['wpUploadFile']['name'] = $prefix . $req->getFileName('wpUploadFile');
 			}
 		}
-		$out->addWikiText(wfMessage('attach-text'));
+		$out->addWikiTextAsInterface(wfMessage('attach-text'));
 		parent::execute('');
 		$out->setPageTitle(wfMessage('attach-page', $title->getPrefixedText())->escaped());
 	}
