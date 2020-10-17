@@ -164,7 +164,7 @@ class Attachments {
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
 			return $linkRenderer->makeKnownLink($title, wfMessage('attachments-add-new'), [], ['action'=>'attach'])
-				. (new CategoryViewer($title, $context))->formatList($articles, $articles_start_char);
+				. CategoryViewer::columnList($articles, $articles_start_char);
 		}
 	}
 }
