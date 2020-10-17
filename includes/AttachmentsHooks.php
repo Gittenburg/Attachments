@@ -62,6 +62,9 @@ class AttachmentsHooks {
 		$pages = Attachments::getPages($title);
 		$files = Attachments::getFiles($title);
 		$html = Attachments::makeList($title, $pages, $files, $out->getContext());
+		$out->getOutput()->addModuleStyles([
+			'mediawiki.action.view.categoryPage.styles'
+		]);
 
 		if (count($pages)+count($files) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
 			$out->addHTML("<div id=ext-attachments class=mw-parser-output>"); # class for external link icon
