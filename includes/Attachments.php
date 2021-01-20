@@ -88,7 +88,7 @@ class Attachments {
 				'rev'=>['INNER JOIN', ['page_latest=rev_id', 'rev_deleted=0']],
 				'patt'=>['LEFT JOIN', ['page_id=patt.pp_page', 'patt.pp_propname'=>self::getAttachPropname($title)]],
 				'purl'=>['LEFT JOIN', ['page_id=purl.pp_page', 'purl.pp_propname'=>self::PROP_URL]],
-				'pp_defaultsort'=>['LEFT JOIN', ['page_id=pp_defaultsort.pp_page', 'pp_defaultsort.pp_propname="defaultsort"']]
+				'pp_defaultsort'=>['LEFT JOIN', ['page_id=pp_defaultsort.pp_page', 'pp_defaultsort.pp_propname=\'defaultsort\'']]
 			]
 		);
 		if ($count)
