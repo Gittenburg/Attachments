@@ -1,4 +1,6 @@
 <?php
+use MediaWiki\MediaWikiServices;
+
 class AttachAction extends Action {
 	public function getName(){
 		return 'attach';
@@ -131,6 +133,11 @@ class  LinkForm extends HTMLForm {
 
 	function submit($data){
 		$title = Title::newFromText($this->getRequest()->getVal('title'));
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$permissionErrors = $permissionManager->getPermissionErrors('edit', $this->getUser(), $title);
+		if (!empty($permissionErrors)) {
+			return $permissionErrors;
+		}
 		$status = WikiPage::factory(
 			$title->getSubpage(Title::capitalize($data['Subpage']))
 		)->doEditContent(
