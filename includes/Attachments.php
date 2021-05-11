@@ -112,6 +112,7 @@ class Attachments {
 	}
 
 	public static function makeList(Title $title, $pages, $files, $context) {
+		global $wgAttachmentsChunkListByLetter;
 		$links = [];
 
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
@@ -163,12 +164,16 @@ class Attachments {
 				$articles[] = $link;
 				$articles_start_char[] = mb_substr($key, 0, 1);
 			}
-			// Both columnList and shortList chunk the list items by their first letter.
-			// Like MediaWiki categories we only use the three-column format if there are more than 6 items.
-			if (count($articles) > 6) {
-				$listHTML = CategoryViewer::columnList($articles, $articles_start_char);
+			if ($wgAttachmentsChunkListByLetter) {
+				// Both columnList and shortList chunk the list items by their first letter.
+				// Like MediaWiki categories we only use the three-column format if there are more than 6 items.
+				if (count($articles) > 6) {
+					$listHTML = CategoryViewer::columnList($articles, $articles_start_char);
+				} else {
+					$listHTML = CategoryViewer::shortList($articles, $articles_start_char);
+				}
 			} else {
-				$listHTML = CategoryViewer::shortList($articles, $articles_start_char);
+				$listHTML = '<ul><li>' . implode( "</li>\n<li>", $articles ) . '</li></ul>';
 			}
 			return $linkRenderer->makeKnownLink($title, wfMessage('attachments-add-new'), [], ['action'=>'attach'])
 				. $listHTML;

@@ -9,7 +9,8 @@
 	"config": {
 		"AttachmentsNamespaces": {
 			"_merge_strategy": "array_plus"
-		}
+		},
+		"AttachmentsChunkListByLetter": true
 	},
 	"AutoloadClasses": {
 		"Attachments": "includes/Attachments.php",
