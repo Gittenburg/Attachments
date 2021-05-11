@@ -10,7 +10,9 @@
 		"AttachmentsNamespaces": {
 			"_merge_strategy": "array_plus"
 		},
-		"AttachmentsChunkListByLetter": true
+		"AttachmentsChunkListByLetter": true,
+		"AttachmentsShowSubpageForm": true,
+		"AttachmentsShowLinkForm": true
 	},
 	"AutoloadClasses": {
 		"Attachments": "includes/Attachments.php",
