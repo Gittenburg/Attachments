@@ -12,10 +12,6 @@ class AttachAction extends Action {
 }
 
 class SpecialAttach extends SpecialUpload {
-	function __construct() {
-		SpecialPage::__construct( 'Attach' );
-	}
-
 	function execute( $title ) {
 		$req = $this->getRequest();
 
