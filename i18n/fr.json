@@ -1,0 +1,34 @@
+{
+	"attachments": "Pièces jointes",
+	"attachments-desc": "Joignez des fichiers et des liens aux pages.",
+	"attachments-verb": "Joindre",
+
+	"attachments-add-new": "Ajouter une nouvelle pièce jointe",
+	"attachments-add-first": "Cette page n'a pas encore de pièces jointes mais vous pouvez $1.",
+	"attachments-add-first-link": "en ajouter",
+
+	"attach-page": "Joindre à \"$1\"",
+	"attach-text": "",
+	"attach-invalidtitle": "nom invalide",
+	"attach-articleexists": "Une page de ce nom [[$1|existe déjà]].",
+
+	"attach-addsubpage-heading": "Ajouter une sous-page",
+	"attach-addsubpage-text": "Les pages Wiki peuvent facilement être éditées en collaboration.",
+	"attach-addsubpage-label": "Nom de la sous-page",
+	"attach-addsubpage-action": "Créer une sous-page",
+
+	"attach-upload-heading": "Téléverser un fichier",
+	"attach-upload-category": "Fichiers joints",
+
+	"attach-addlink-heading": "Ajouter un lien",
+	"attach-addlink-text": "",
+	"attach-addlink-title": "Titre",
+	"attach-addlink-url": "URL",
+	"attach-addlink-action": "Ajouter un lien",
+	"attach-addlink-editmsg": "créer un lien externe",
+
+	"attached-to": "attaché à",
+	"attachments-invalid-url": "URL invalide",
+	"attachments-exturl-twice": "exturl a déjà été défini",
+	"attachments-category-exturl-error": "Pages avec des erreurs exturl"
+}
