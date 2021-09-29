@@ -20,14 +20,14 @@ class AttachmentsHooks {
 			# add category for $wgCountCategorizedImagesAsUsed
 			$parser->getOutput()->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
 
-		return [self::msg(wfMessage('attached-to').' <b>'.$parser->getLinkRenderer()->makeKnownLink($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
+		return [self::msg($parser->msg('attached-to').' <b>'.$parser->getLinkRenderer()->makeKnownLink($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
 	}
 
 	public static function renderExtURL( Parser $parser, $url) {
 		$out = $parser->getOutput();
 		if ($out->getExtensionData('did-exturl')){
 			$parser->getOutput()->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
-			return self::msg(wfMessage('attachments-exturl-twice'), 'error');
+			return self::msg($parser->msg('attachments-exturl-twice'), 'error');
 		}
 
 		$out->setExtensionData('did-exturl', true);
@@ -68,7 +68,7 @@ class AttachmentsHooks {
 
 		if (count($pages)+count($files) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title])){
 			$out->addHTML("<div id=ext-attachments class=mw-parser-output>"); # class for external link icon
-			$out->addWikiTextAsInterface("== ".wfMessage('attachments')."==");
+			$out->addWikiTextAsInterface("== ".$out->msg('attachments')."==");
 
 			if ($skin->getSkinName() == 'minerva' && substr($out->mBodytext, -6) == '</div>')
 				# hack to make section collapsible (removing </div>)
@@ -91,13 +91,13 @@ class AttachmentsHooks {
 
 		if (Attachments::countAttachments($title) > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title]))
 			$tpl->data['page_actions']['attachments'] = [
-				'itemtitle' => wfMessage('attachments'),
-				'href' => '#' . Sanitizer::escapeIdForAttribute(wfMessage('attachments')),
+				'itemtitle' => $tpl->msg('attachments'),
+				'href' => '#' . Sanitizer::escapeIdForAttribute($tpl->msg('attachments')),
 				'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attachments'
 			];
 
 		$tpl->data['page_actions']['attach'] = [
-			'itemtitle' => wfMessage('attachments-add-new'),
+			'itemtitle' => $tpl->msg('attachments-add-new'),
 			'href' => $title->getLocalURL('action=attach'),
 			'class' => 'mw-ui-icon mw-ui-icon-element mw-ui-icon-minerva-attach'
 		];
@@ -113,13 +113,13 @@ class AttachmentsHooks {
 		if ($count > 0 || Hooks::run('ShowEmptyAttachmentsSection', [clone $title]))
 			$links['namespaces'] = array_slice($links['namespaces'], 0, 1) + [
 				'attachments' => [
-					'text'=> wfMessage('attachments') . " ($count)",
-					'href' => '#' . wfMessage('attachments')
+					'text'=> $sktemplate->msg('attachments') . " ($count)",
+					'href' => '#' . $sktemplate->msg('attachments')
 				]
 			] + array_slice($links['namespaces'], 1);
 		$links['views'] = array_slice($links['views'], 0, 2) + [
 			'add_attachment' => [
-				'text'=> wfMessage('attachments-verb'),
+				'text'=> $sktemplate->msg('attachments-verb'),
 				'href' => $title->getLocalURL('action=attach'),
 				'class' => ''
 			]

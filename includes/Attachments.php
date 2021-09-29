@@ -134,7 +134,7 @@ class Attachments {
 
 			if ($res['url']) {
 				if ($res['url'] == 'invalid')
-					$links[$key] = '<a class=new title="'.wfMessage('attachments-invalid-url')->escaped().'">'
+					$links[$key] = '<a class=new title="'.$context->msg('attachments-invalid-url')->escaped().'">'
 									.htmlspecialchars($subtitle).'<span class=external></span></a>';
 				else
 					$links[$key] = Linker::makeExternalLink($res['url'], $subtitle);
@@ -152,7 +152,7 @@ class Attachments {
 		}
 
 		if (count($links) == 0){
-			return wfMessage('attachments-add-first', $linkRenderer->makeKnownLink($title, wfMessage('attachments-add-first-link'), [], ['action'=>'attach']))->text();
+			return $context->msg('attachments-add-first', $linkRenderer->makeKnownLink($title, $context->msg('attachments-add-first-link'), [], ['action'=>'attach']))->text();
 		} else {
 			if (Hooks::run('BeforeSortAttachments', [&$links]))
 				ksort($links);
@@ -175,7 +175,7 @@ class Attachments {
 			} else {
 				$listHTML = '<ul><li>' . implode( "</li>\n<li>", $articles ) . '</li></ul>';
 			}
-			return $linkRenderer->makeKnownLink($title, wfMessage('attachments-add-new'), [], ['action'=>'attach'])
+			return $linkRenderer->makeKnownLink($title, $context->msg('attachments-add-new'), [], ['action'=>'attach'])
 				. $listHTML;
 		}
 	}
