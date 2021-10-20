@@ -20,14 +20,14 @@ class AttachmentsHooks {
 			# add category for $wgCountCategorizedImagesAsUsed
 			$parser->getOutput()->addTrackingCategory('attachments-category-attached-files', $parser->getTitle());
 
-		return [self::msg($parser->msg('attached-to').' <b>'.$parser->getLinkRenderer()->makeKnownLink($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
+		return [self::msg(wfMessage('attached-to').' <b>'.$parser->getLinkRenderer()->makeKnownLink($title, null, [], ['redirect'=>'no']).'</b>'), 'isHTML'=>true];
 	}
 
 	public static function renderExtURL( Parser $parser, $url) {
 		$out = $parser->getOutput();
 		if ($out->getExtensionData('did-exturl')){
 			$parser->getOutput()->addTrackingCategory('attachments-category-exturl-error', $parser->getTitle());
-			return self::msg($parser->msg('attachments-exturl-twice'), 'error');
+			return self::msg(wfMessage('attachments-exturl-twice'), 'error');
 		}
 
 		$out->setExtensionData('did-exturl', true);
