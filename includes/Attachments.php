@@ -61,7 +61,7 @@ class Attachments {
 		foreach( $res as $row ) {
 			$titles[] = $row->page_title;
 		}
-		return RepoGroup::singleton()->getLocalRepo()->findFiles($titles);
+		return MediaWikiServices::getInstance()->getRepoGroup()->findFiles($titles);
 	}
 
 	public static function getPages(Title $title, $count = FALSE){
